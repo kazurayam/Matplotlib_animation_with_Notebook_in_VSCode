@@ -1,7 +1,11 @@
 {
   "cSpell.words": [
+    "ipympl",
     "ipynb",
+    "jupyterlab",
     "Matplotlib",
+    "mkdir",
+    "numpy",
     "pipenv",
     "Qiita"
   ]
