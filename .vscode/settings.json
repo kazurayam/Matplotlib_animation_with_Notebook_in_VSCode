@@ -3,10 +3,13 @@
     "ipympl",
     "ipynb",
     "jupyterlab",
+    "kazurayam",
     "Matplotlib",
     "mkdir",
     "numpy",
     "pipenv",
-    "Qiita"
+    "PRJDIR",
+    "Qiita",
+    "venv"
   ]
 }
