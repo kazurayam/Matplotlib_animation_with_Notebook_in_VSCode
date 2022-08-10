@@ -6,13 +6,13 @@
 
 - [Qiita 完全に理解するアフィン変換 @koshain2](https://qiita.com/koshian2/items/c133e2e10c261b8646bf)
 
-とても良い記事でした。ためになる。ところが数学的解説を学ぶよりも以前に、私の関心は横道にそれてしまいました。というのもこの記事にこんな画像が貼ってあった。
+とてもためになる良い記事です。ところがAffine変換を学ぶ前に、僕の関心は脇道に逸れてしまった。この記事にこんなアニメーションが貼ってあった。
 
-- ![サンプル](https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.amazonaws.com%2F0%2F232088%2F3a92a0a5-67fc-bdb7-57f8-0b30c0e48ad9.gif?ixlib=rb-4.0.0&auto=format&gif-q=60&q=75&w=1400&fit=max&s=cb264195c0216e5146dbe90a17054d3b)
+- ![サンプル](https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.amazonaws.com%2F0%2F232088%2Fc78e7034-5baa-21ae-7fd0-a700ff4cd27b.gif?ixlib=rb-4.0.0&auto=format&gif-q=60&q=75&w=1400&fit=max&s=90791f22bd00fc189485a39d7310e6cd)
 
-このアニメーション画像をどうやって実装したんだろう？僕も真似してみたい！と思った。記事にはOpenCVライブラリを呼び出して図形をAffine変換するPythonコードが掲載されていた。だから僕もすぐ真似できるだろうと思った。
+このアニメーションをどうやって実装しているだろう？真似してみたい！と思った。記事にはPythonコードが掲載されていた。だからサンプルコードを写経すれば僕もすぐ真似できるだろうと思った。
 
-しかしいざやってみるとPython環境を整えるのが面倒だった。というのも僕は下記のようなPython環境でアニメーションを動かしたかったから。
+しかしいざやってみるとPython環境を整えるのが面倒だった。というのも僕は個人的好みにより、下記のようなPython環境でアニメーションを動かしたかったから。
 
 1. IDEとしてVisual Studio Codeを使いたい。
 2. VSCodeの中でJupyter Notebookを使いたい。つまり名前が `*.ipynb` であるファイルを作って実行したい。
