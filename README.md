@@ -104,7 +104,7 @@ $ pipenv run python print_sys.py
 /Users/kazurayam/.local/share/virtualenvs/Matplotlib_animation_with_Notebook_in_VSCo-zSMskZBS/bin/python
 ```
 
-一番目で使われたPythonインタープレタと二番目のPythonインタープレタのパスが違う。一番目のパスは仮想環境ではない。二番目のパスがこのプロジェクトのために準備した仮想環境の中のPythonインタープレタである。こっちが好みだ。
+Step1で使われたPythonインタープレタとStep2のPythonインタープレタのパスが違う。Step1のパスは仮想環境ではない。Step2のパスがこのプロジェクトのために準備した仮想環境の中のPythonインタープレタである。こっちが好みだ。
 
 ### Step3 Jupyterでどう動くか
 
@@ -119,7 +119,7 @@ $ jupyter notebook
 
 ![jupyter_print_sys](./docs/images/jupyter_print_sys.png)
 
-一番目の検証と同じパスが表示された。そりゃそうなるでしょう、予想通りだ。
+Step1と同じパスが表示された。これは予想通りだ。
 
 ### Step4 Jupyter+仮想環境でどう動くか
 
@@ -134,17 +134,19 @@ $ pipenv run jupyter notebook
 
 ![jupyter_pipenv_run](./docs/images/jupyter_pipenv_run.png)
 
-あれれ？Step2と同じく仮想環境のPythonインタープレタのパスが表示されるだろうと予想していたが、そうはならなかった。Step1と同じパスが表示された。なぜこう動作したのか？コマンドラインからJupyterを起動するときにプロジェクト固有の仮想環境の中のPythonインタープレタを使いたい時、どこをどうすべきなのか、わたしはまだわかっていない。きっとどこかに設定とかコマンドラインのパラメータとかがあるのだろうが、わたしは知らない。
+あれれ？Step2と同じく仮想環境のPythonインタープレタのパスが表示されるだろうと予想していたが、そうはならなかった。Step1と同じパスが表示された。なぜか？
 
->本記事が目標とするのはVSCodeの中でNotebookを動かすことです。Jupyterの中でNotebookを動かす場合のことは構わないことにします。
+コマンドラインからJupyterを起動するときにプロジェクト固有の仮想環境の中のPythonインタープレタを使いたい時、どこをどうすべきなのか、わたしはわからない。きっと方法があるのだろうがわたしはまだ知らない。
 
-### Step5 VSCode+Notebook -> ipykernelが必要
+>本記事の目標はVSCodeの中でNotebookの中でMatplotlibのアニメーションを動かすことなので、Jupyterの中でNotebookを動かす場合のことには深入りしません。
+
+### Step5 VSCode+Notebookのためにipykernelが必要
 
 デスクトップアイコンをダブルクリックしてVSCodeを起動し、その中でNotebook `print_sys.ipynb` を開いた。pythonコードを実行してみた。
 
 ![VSCode_print_sys_out_of_venv](docs/images/VSCode_print_sys_out_of_venv.png)
 
-上のスクリーリーンショットの中でAと印した箇所を見てほしい。一番目の検証と同じPythonインタープレタのパスが表示されている。これは本プロジェクトのための仮想環境ではなくて、わたしのマシンのデフォルトになっているPythonインタープレタのパスだ。
+上のスクリーリーンショットの中でAと印した箇所を見てほしい。Step1と同じPythonインタープレタのパスが表示されている。これは本プロジェクトのための仮想環境ではなくて、わたしのマシンのデフォルトになっているPythonインタープレタのパスだ。
 
 Bと印した箇所を見てほしい。`import cv2`がエラーになっている。私のマシンのデフォルトになっているPython実行環境にopencv-pythonをインストールしていないから、エラーになっているのだ。
 
@@ -154,7 +156,7 @@ https://code.visualstudio.com/docs/datascience/jupyter-notebooks
 
 >Next, select a kernel using the kernel picker in the top right.
 
-Notebookを開いた画面の右上にkernel pickerがある、これをクリックせよ、といっている。
+スクリーンショットにCと印した箇所つまりNotebookを開いた画面の右上に kernel picker がある、これをクリックせよ、といっている。
 
 
 クリックしてみると、選択可能なPythonインタープレタのパス候補が表示された。その中にこのプロジェクト専用の仮想環境の中のPythonインタープレタ（その中にopencv-pythonがインストール済みである）も列挙されていた。
@@ -171,22 +173,19 @@ Run the following command to install 'ipykernel' into the Python environment.
 Command: '/Users/kazurayam/.local/share/virtualenvs/Matplotlib_animation_with_Notebook_in_VSCo-zSMskZBS/bin/python -m pip install ipykernel -U --force-reinstall'
 ```
 
-[ipykernel](https://pypi.org/project/ipykernel/)パッケージが必要だからインストールしなさいと警告している。
-
-そこでメッセージに表示された通りのコマンドを実行して、プロジェクト専用の仮想環境にipykernelをインストールした。
+Notebookの中のpythonコードを実行するために[ipykernel](https://pypi.org/project/ipykernel/)パッケージが必要だからインストールしなさいとのこと。そこでメッセージに表示された通りのコマンドを実行して、プロジェクト専用の仮想環境にipykernelをインストールした。
 
 ```
-$ cd $PRJDIR
 $ /Users/kazurayam/.local/share/virtualenvs/Matplotlib_animation_with_Notebook_in_VSCo-zSMskZBS/bin/python -m pip install ipykernel -U --force-reinstall
 ```
 
-プロジェクト専用のPython仮想環境にipykernelがインストールされた。VSCodeの中でNotebookを開き、仮想環境のPythonインタープレタを指定するとipykernelが動いて、Notebookのpythonコードを実行できるようになった。仮想環境にインストール済みの他のパッケージ（numpyやcv2）もimportできるようになった。
+プロジェクト専用のPython仮想環境にipykernelがインストールされた。VSCodeの中でNotebookを開き、仮想環境のPythonインタープレタを指定するとipykernelが動いて、Notebookのpythonコードを実行できるようになった。仮想環境にインストール済みの他のパッケージ（numpyやcv2）もimportできるようになった。前進した。
 
 ![cv2 imported](docs/images/VSCode_ipykernel_cv2_installed.png)
 
 ### Step6 VSCode+Notebook アニメーションを作るPythonコードを作った、アニメーションGIFファイルを作った
 
-Notebook [shiftX_saveGif.ipynb](https://github.com/kazurayam/Matplotlib_animation_with_Notebook_in_VSCode/blob/master/shiftX_saveGif.ipynb) を書いた。このコードを作るにあたっては「[Qiita 完全に理解するアフィン変換 @koshain2](https://qiita.com/koshian2/items/c133e2e10c261b8646bf)」の成果を拝借した。Qiita記事はAffine変換を解説することに注力していて、Matplotlibのアニメーションを利用する方法の説明を省いていた。そこでわたしはAnimationのためのコードを補った。
+[shiftX_saveGif.ipynb](https://github.com/kazurayam/Matplotlib_animation_with_Notebook_in_VSCode/blob/master/shiftX_saveGif.ipynb) というNotebookを書いた。このコードを書くにあたって「[Qiita 完全に理解するアフィン変換 @koshain2](https://qiita.com/koshian2/items/c133e2e10c261b8646bf)」の成果を拝借した。ただしQiita記事はAffine変換を解説することに注力していて、Matplotlibのアニメーションを利用する方法の説明は説明していない。そこでわたしはアニメーションするためのコードを補った。
 
 ```
 # 水平移動
@@ -229,31 +228,34 @@ animation = FuncAnimation(fig, update,
 animation.save("shiftX.gif")
 ```
 
-このpythonコードはJPEG画像ファイルを読み込みXY座標平面に配置し、画像を徐々に水平方向にスライドさせる、そういうアニメーションを作る。アニメーションを `shiftX.gif` ファイルに保存する。
+このpythonコードはJPEG画像ファイルを読み込みXY座標平面に配置し、画像を徐々に水平方向にスライドさせる、そういうアニメーションを作り、GIFファイルに出力する。これを実行したら `shiftX.gif` ファイルができた。GIFファイルをダブルクリックすればそれ単体で眺めることができる。この通り：
 
 ![GIF](https://github.com/kazurayam/Matplotlib_animation_with_Notebook_in_VSCode/blob/master/shiftX.gif?raw=true)
 
-このスクリプトはGIFファイルにwriteしておしまいになる。VSCodeのなか、Notebookのなかで、アニメーションを見ることができない。
+ただしこのスクリプトではNotebookのなかでアニメーションが動くのを見ることはできない。
 
 ### Step7 VSCodeの中のNotebookの中でアニメーションが表示されない。
 
-[shiftX_without_ipympl.ipynb](https://github.com/kazurayam/Matplotlib_animation_with_Notebook_in_VSCode/blob/master/shiftX_without_ipympl.ipynb)を書いた。このコードはGIFファイルをwriteするのではなく`plt.show()`する。Notebookを開いた上でアニメーションを描画することを狙った。
+[shiftX_without_ipympl.ipynb](https://github.com/kazurayam/Matplotlib_animation_with_Notebook_in_VSCode/blob/master/shiftX_without_ipympl.ipynb)を書いた。このコードはGIFファイルをwriteするのではなく`plt.show()`する。つまりNotebookを開いたなかでアニメーションを動かすことを狙った。
 
 ```
+...
+
 #animation.save("shiftX.gif")
 plt.show()
 ```
 
-実行してみると、軸があって中身が空のXY平面がプロットされた。画像が水平方向に移動するアニメーションが表示されることを期待したが表示されなかった。
+実行してみると、X軸 Y軸があるが中身が空の平面がプロットされた。画像が水平方向に移動するアニメーションが表示されることを期待したがそうはならなかった。
 
 ![anim not acting](docs/images/VSCode_anim_not_acting.png)
 
-ちなみに[shiftX_without_ipympl.ipynb](https://github.com/kazurayam/Matplotlib_animation_with_Notebook_in_VSCode/blob/master/shiftX_without_ipympl.ipynb)をJupyterのなかで実行してみた。この場合もアニメーションは表示されなかった。VSCodeかJupyterかで同じ結果だった。
-
+このNotebookを(VSCodeではなくて)Jupyterのなかで実行してみた。Jupyterでもアニメーションは表示されなかった。
 
 ### Step8 ipymplマジックを宣言した
 
-MatplotlibのアニメーションをNotebookの中で動かしたいのだがまだ何かが足りない。何だろう。ググったら `ipympl` が必要だと分かった。
+MatplotlibのアニメーションをNotebookの中で動かしたいが、まだ何かが足りない。何だろう？
+
+ググったらMatplotlibプロジェクトが提供する `ipympl`パッケージ が必要だと分かった。
 
 - [ipympl](https://matplotlib.org/ipympl/)
 
@@ -266,7 +268,7 @@ $ cd $PRJDIR
 $ pipenv install ipympl
 ```
 
-そしてNotebookファイルの先頭にマジックを1行追記する。
+そしてNotebookファイルの先頭にマジックを1行追記した。
 
 ```
 %matplotlib ipympl
@@ -316,14 +318,12 @@ animation = FuncAnimation(fig, update,
 plt.show()
 ```
 
-ついにVSCodeの中でNotebookのなかでMatplotlibのアニメーションが表示されました。
+実行してみた。ついにVSCodeの中でNotebookのなかでMatplotlibのアニメーションが表示された。
 
 ![VSCode_anim_in_action](docs/images/VSCode_anim_in_action.png)
 
-## 結論
+## ふりかえり
 
-VSCodeのなかNotebookのなかのMatplotlibアニメーションの動きは残念ながら滑らかではありません。ちょっと見るに耐えない感じですらある。JPEG画像を変換する処理を[matplotlib.animation.ArtistAnimation](https://matplotlib.org/stable/api/_as_gen/matplotlib.animation.ArtistAnimation.html)ではなく[matplotlib.animation.FuncAnimation()](https://matplotlib.org/stable/api/_as_gen/matplotlib.animation.FuncAnimation.html)で駆動しているのでCPU負荷が無駄に高くなったせいだと思います。MatplotlibのアニメーションをVSCodeのNotebookで眺めたいという要求を満足することが本記事の目標でした。アニメーションの出来の良し悪しはさておくことにします。
+いくつかのパッケージを追加しNotebookの設定を工夫することにより、VSCodeのなかNotebookのなかでMatplotlibアニメーションを動かすことに成功した。
 
-
-
-
+ただしわたしが実装したアニメーションの動きは残念ながら滑らかなでない。ちょっと見るに耐えない感じですらある。JPEG画像を変換する処理を[matplotlib.animation.ArtistAnimation](https://matplotlib.org/stable/api/_as_gen/matplotlib.animation.ArtistAnimation.html)ではなく[matplotlib.animation.FuncAnimation](https://matplotlib.org/stable/api/_as_gen/matplotlib.animation.FuncAnimation.html)で実装したことが要因（CPU負荷が高伊）だと思う。コードに工夫の余地が大いにある。けど、まあ、いいや。
