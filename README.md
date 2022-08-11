@@ -15,7 +15,7 @@
 1. IDEとして[Visual Studio Code](https://code.visualstudio.com/)を使いたい。もちろん[Python for VSCode](https://code.visualstudio.com/docs/languages/python)を入れて。
 2. VSCodeの中で [Notebook](https://code.visualstudio.com/docs/datascience/jupyter-notebooks) すなわちファイル名が `*.ipynb` であるファイルをエディタで作って実行したい。
 3. Notebookをエディタで開き、pythonコードを選んで Ctrl+Enter で run する。するとJupyter Server:Localがpythonコードを実行して、その結果としてアニメーションがNotebookの中で動く。こういう操作をしたい。
-4. ただし作業プロジェクトのために固有のpython仮想環境を作って使いたい。 [pipenv](https://pypi.org/project/pipenv/) で。具体例を挙げるならば `"$ pipenv install opencv-python"` でインストールした [`cv2`](https://pypi.org/project/opencv-python/) ライブラリを VSCodeの中のNotebookの中のpythonコードがimportできるようにしたい。そのためにはpipenvで作った仮想環境の中のPythonインタプレタを使ってVSCodeの中のpythonコードを実行することが必要である。
+4. ただし作業プロジェクトのために固有のpython仮想環境を作って使いたい。 [pipenv](https://pypi.org/project/pipenv/) で。具体例を挙げるならば `"$ pipenv install opencv-python"` でインストールした [`cv2`](https://pypi.org/project/opencv-python/) ライブラリを VSCodeの中のNotebookの中のpythonコードがimportできるようにしたい。そのためにはpipenvで作った仮想環境の中のPythonインタプレタを使ってVSCodeのなかNotebookのなかのpythonコードを実行することが必要である。
 
 試行錯誤したあげく望ましい実行環境を構築することができた。どのように環境を作ったか、ここに自分のためにメモします。
 
@@ -30,8 +30,8 @@ pipenvをインストールした。Python仮想環境を作れるように。�
 ## 準備2 本プロジェクトのためにディレクトリと仮想環境を作った
 
 ```
-$ mkdir Matplotlib_animation_with_Notebook_in_VSCode
-$ cd Matplotlib_animation_with_Notebook_in_VSCode
+$ mkdir ~/Matplotlib_animation_with_Notebook_in_VSCode
+$ cd ~/Matplotlib_animation_with_Notebook_in_VSCode
 $ export PRJDIR=$(pwd)
 ```
 
@@ -58,7 +58,7 @@ $ pipenv --venv
 /Users/kazurayam/.local/share/virtualenvs/Matplotlib_animation_with_Notebook_in_VSCo-zSMskZBS
 ```
 
-自分のpythonコードがimportするパッケージを仮想環境にインストールした。
+自分がきっと必要とすると分かっているパッケージをプロジェクト専用の仮想環境にインストールした。
 
 ```
 $ cd $PRJDIR
@@ -140,7 +140,7 @@ $ pipenv run jupyter notebook
 
 >本記事の目標はVSCodeの中でNotebookの中でMatplotlibのアニメーションを動かすことなので、Jupyterの中でNotebookを動かす場合のことには深入りしません。
 
-### Step5 VSCode+Notebookのためにipykernelが必要
+### Step5 VSCodeでNotebookを実行するために必要な設定
 
 デスクトップアイコンをダブルクリックしてVSCodeを起動し、その中でNotebook `print_sys.ipynb` を開いた。pythonコードを実行してみた。
 
@@ -183,7 +183,7 @@ $ /Users/kazurayam/.local/share/virtualenvs/Matplotlib_animation_with_Notebook_i
 
 ![cv2 imported](docs/images/VSCode_ipykernel_cv2_installed.png)
 
-### Step6 VSCode+Notebook アニメーションを作るPythonコードを作った、アニメーションGIFファイルを作った
+### Step6 アニメーションするPythonコードを書いた
 
 [shiftX_saveGif.ipynb](https://github.com/kazurayam/Matplotlib_animation_with_Notebook_in_VSCode/blob/master/shiftX_saveGif.ipynb) というNotebookを書いた。このコードを書くにあたって「[Qiita 完全に理解するアフィン変換 @koshain2](https://qiita.com/koshian2/items/c133e2e10c261b8646bf)」の成果を拝借した。ただしQiita記事はAffine変換を解説することに注力していて、Matplotlibのアニメーションを利用する方法の説明は説明していない。そこでわたしはアニメーションするためのコードを補った。
 
@@ -234,7 +234,7 @@ animation.save("shiftX.gif")
 
 ただしこのスクリプトではNotebookのなかでアニメーションが動くのを見ることはできない。
 
-### Step7 VSCodeの中のNotebookの中でアニメーションが表示されない。
+### Step7 Notebookの中でMatplotlibアニメーションが描画されない。
 
 [shiftX_without_ipympl.ipynb](https://github.com/kazurayam/Matplotlib_animation_with_Notebook_in_VSCode/blob/master/shiftX_without_ipympl.ipynb)を書いた。このコードはGIFファイルをwriteするのではなく`plt.show()`する。つまりNotebookを開いたなかでアニメーションを動かすことを狙った。
 
@@ -245,17 +245,15 @@ animation.save("shiftX.gif")
 plt.show()
 ```
 
-実行してみると、X軸 Y軸があるが中身が空の平面がプロットされた。画像が水平方向に移動するアニメーションが表示されることを期待したがそうはならなかった。
+実行してみると、axesがあるけどfigureが空っぽ座標平面がプロットされた。JPEG画像が水平方向に移動するアニメーションが表示されることを期待したがそうはならなかった。
 
 ![anim not acting](docs/images/VSCode_anim_not_acting.png)
 
-このNotebookを(VSCodeではなくて)Jupyterのなかで実行してみた。Jupyterでもアニメーションは表示されなかった。
+このNotebookを(VSCodeではなくて)Jupyterのなかでも実行してみたが、Jupyterでもアニメーションは表示されなかった。
 
-### Step8 ipymplマジックを宣言した
+### Step8 ipymplパッケージを導入したらついに動いた
 
-MatplotlibのアニメーションをNotebookの中で動かしたいが、まだ何かが足りない。何だろう？
-
-ググったらMatplotlibプロジェクトが提供する `ipympl`パッケージ が必要だと分かった。
+MatplotlibのアニメーションをNotebookの中で動かしたいが、まだ何かが足りない。何だろう？ググったらMatplotlibプロジェクトが提供する `ipympl`パッケージ が必要だと分かった。
 
 - [ipympl](https://matplotlib.org/ipympl/)
 
@@ -326,4 +324,4 @@ plt.show()
 
 いくつかのパッケージを追加しNotebookの設定を工夫することにより、VSCodeのなかNotebookのなかでMatplotlibアニメーションを動かすことに成功した。
 
-ただしわたしが実装したアニメーションの動きは残念ながら滑らかなでない。ちょっと見るに耐えない感じですらある。JPEG画像を変換する処理を[matplotlib.animation.ArtistAnimation](https://matplotlib.org/stable/api/_as_gen/matplotlib.animation.ArtistAnimation.html)ではなく[matplotlib.animation.FuncAnimation](https://matplotlib.org/stable/api/_as_gen/matplotlib.animation.FuncAnimation.html)で実装したことが要因だろう。コードに工夫の余地が大いにあるが、まあ、いいことにする。
+ただしわたしが実装したアニメーションの動きは残念ながら滑らかでない。JPEG画像を変換する処理を[matplotlib.animation.ArtistAnimation](https://matplotlib.org/stable/api/_as_gen/matplotlib.animation.ArtistAnimation.html)ではなく[matplotlib.animation.FuncAnimation](https://matplotlib.org/stable/api/_as_gen/matplotlib.animation.FuncAnimation.html)で実装したことが要因だと思う。コードに工夫の余地が大いにある。しかし今のところわたしはこれで満足だ。
