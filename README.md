@@ -21,7 +21,7 @@
 
 わたしが使っているOSはmacOS v12.3です。
 
-##　準備1 pipenv
+## 準備1 pipenv
 
 何はともあれmacOSにPython3をインストールした。具体的な手順は[こちら](https://github.com/kazurayam/MyPythonProjectTemplate#python%E5%87%A6%E7%90%86%E7%B3%BB%E3%82%92macos%E3%81%AB%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B)を参照のこと。
 
@@ -58,7 +58,7 @@ $ pipenv --venv
 /Users/kazurayam/.local/share/virtualenvs/Matplotlib_animation_with_Notebook_in_VSCo-zSMskZBS
 ```
 
-本プロジェクトが依存するライブラリ群を仮想環境にインストールした。
+自分のpythonコードがimportするパッケージを仮想環境にインストールした。
 
 ```
 $ cd $PRJDIR
@@ -91,6 +91,9 @@ $ python print_sys.py
 /Users/kazurayam/.pyenv/versions/anaconda3-4.4.0/bin/python
 ```
 
+このパスが示すPythonインタープレタはわたしのマシンのデフォルトであって、このプロジェクト専用の仮想環境の中にあるPythonインタープレタではない。これではダメなのだ。
+
+
 ### Ste2 プロジェクト専用のPython仮想環境でどう動くか
 
 pipenv runを介して`print_sys.py`を実行してみた。
@@ -101,8 +104,7 @@ $ pipenv run python print_sys.py
 /Users/kazurayam/.local/share/virtualenvs/Matplotlib_animation_with_Notebook_in_VSCo-zSMskZBS/bin/python
 ```
 
-一番目で使われたPythonインタープレタと二番目のPythonインタープレタのパスが違う。一番目のパスは仮想環境ではない。二番目のパスがこのプロジェクトのために準備した仮想環境の中のPythonインタープレタである。
-
+一番目で使われたPythonインタープレタと二番目のPythonインタープレタのパスが違う。一番目のパスは仮想環境ではない。二番目のパスがこのプロジェクトのために準備した仮想環境の中のPythonインタープレタである。こっちが好みだ。
 
 ### Step3 Jupyterでどう動くか
 
@@ -117,7 +119,7 @@ $ jupyter notebook
 
 ![jupyter_print_sys](./docs/images/jupyter_print_sys.png)
 
-一番目の検証と同じパスが表示された。これはわたしの予想と一致する。
+一番目の検証と同じパスが表示された。そりゃそうなるでしょう、予想通りだ。
 
 ### Step4 Jupyter+仮想環境でどう動くか
 
