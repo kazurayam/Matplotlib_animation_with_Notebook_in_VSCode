@@ -117,7 +117,7 @@ $ jupyter notebook
 
 そのあとJupyterの中で`print_sys.ipynb`をCtrl+Enterして実行した。
 
-![jupyter_print_sys](./docs/images/jupyter_print_sys.png)
+![jupyter_print_sys](https://kazurayam.github.io/Matplotlib_animation_with_Notebook_in_VSCode/images/jupyter_print_sys.png)
 
 Step1と同じパスが表示された。これは予想通りだ。
 
@@ -134,7 +134,7 @@ $ pipenv run jupyter notebook
 
 ![jupyter_pipenv_run](./docs/images/jupyter_pipenv_run.png)
 
-あれれ？Step2と同じく仮想環境のPythonインタープレタのパスが表示されるだろうと予想していたが、そうはならなかった。Step1と同じパスが表示された。なぜか？
+はてな？Step2と同じく仮想環境のPythonインタープレタのパスが表示されるだろうと予想していたが、そうはならなかった。Step1と同じパスが表示された。なぜか？
 
 コマンドラインからJupyterを起動するときにプロジェクト固有の仮想環境の中のPythonインタープレタを使いたい時、どこをどうすべきなのか、わたしはわからない。きっと方法があるのだろうがわたしはまだ知らない。
 
@@ -320,7 +320,7 @@ plt.show()
 
 ![VSCode_anim_in_action](docs/images/VSCode_anim_in_action.png)
 
-## ふりかえり
+## 結論
 
 いくつかのパッケージを追加しNotebookの設定を工夫することにより、VSCodeのなかNotebookのなかでMatplotlibアニメーションを動かすことに成功した。
 
