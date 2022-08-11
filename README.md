@@ -15,11 +15,9 @@
 1. IDEとして[Visual Studio Code](https://code.visualstudio.com/)を使いたい。もちろん[Python for VSCode](https://code.visualstudio.com/docs/languages/python)を入れて。
 2. VSCodeの中で [Notebook](https://code.visualstudio.com/docs/datascience/jupyter-notebooks) すなわちファイル名が `*.ipynb` であるファイルをエディタで作って実行したい。
 3. Notebookをエディタで開き、pythonコードを選んで Ctrl+Enter で run する。するとJupyter Server:Localがpythonコードを実行して、その結果としてアニメーションがNotebookの中で動く。こういう操作をしたい。
-4. ただし作業プロジェクトのために固有のpython仮想環境を作って使いたい。 [pipenv](https://pypi.org/project/pipenv/) で。具体例を挙げるならば `"$ pipenv install opencv-python"` でインストールした [`cv2`](https://pypi.org/project/opencv-python/) ライブラリを VSCodeの中のNotebookの中のpythonコードがimportできるようにしたい。そのためにはpipenvで作った仮想環境の中のPythonインタプレタを使ってVSCodeのなかNotebookのなかのpythonコードを実行することが必要である。
+4. ただし作業プロジェクトのために固有のpython仮想環境を[pipenv](https://pypi.org/project/pipenv/) で作って使いたい。具体的にいえば `"$ pipenv install opencv-python"` でインストールした [`cv2`](https://pypi.org/project/opencv-python/) ライブラリを VSCodeの中のNotebookの中のpythonコードがimportできるようにしたい。そのためにはpipenvで作った仮想環境の中のPythonインタプレタを使ってVSCodeのなかNotebookのなかのpythonコードを実行することが必要である。
 
-試行錯誤したあげく望ましい実行環境を構築することができた。どのように環境を作ったか、ここに自分のためにメモします。
-
-わたしが使っているOSはmacOS v12.3です。
+試行錯誤したあげく望ましい実行環境を構築することができた。どのように環境を作ったか、ここに自分のためにメモします。わたしが使っているOSはmacOS v12.3です。
 
 ## 準備1 pipenv
 
@@ -185,7 +183,7 @@ $ /Users/kazurayam/.local/share/virtualenvs/Matplotlib_animation_with_Notebook_i
 
 ### Step6 アニメーションするPythonコードを書いた
 
-[shiftX_saveGif.ipynb](https://github.com/kazurayam/Matplotlib_animation_with_Notebook_in_VSCode/blob/master/shiftX_saveGif.ipynb) というNotebookを書いた。このコードを書くにあたって「[Qiita 完全に理解するアフィン変換 @koshain2](https://qiita.com/koshian2/items/c133e2e10c261b8646bf)」の成果を拝借した。ただしQiita記事はAffine変換を解説することに注力していて、Matplotlibのアニメーションを利用する方法の説明は説明していない。そこでわたしはアニメーションするためのコードを補った。
+[shiftX_saveGif.ipynb](https://github.com/kazurayam/Matplotlib_animation_with_Notebook_in_VSCode/blob/master/shiftX_saveGif.ipynb) というNotebookを書いた。このコードを書くにあたって「[Qiita 完全に理解するアフィン変換 @koshain2](https://qiita.com/koshian2/items/c133e2e10c261b8646bf)」の成果を拝借した。ただしQiita記事はAffine変換を解説することに注力していて、Matplotlibのアニメーションを利用する方法は説明していない。そこでわたしはアニメーションするためのコードを補った。
 
 ```
 # 水平移動
@@ -236,7 +234,7 @@ animation.save("shiftX.gif")
 
 ### Step7 Notebookの中でMatplotlibアニメーションが描画されない。
 
-[shiftX_without_ipympl.ipynb](https://github.com/kazurayam/Matplotlib_animation_with_Notebook_in_VSCode/blob/master/shiftX_without_ipympl.ipynb)を書いた。このコードはGIFファイルをwriteするのではなく`plt.show()`する。つまりNotebookを開いたなかでアニメーションを動かすことを狙った。
+[shiftX_without_ipympl.ipynb](https://github.com/kazurayam/Matplotlib_animation_with_Notebook_in_VSCode/blob/master/shiftX_without_ipympl.ipynb)を書いた。このコードはGIFファイルをsaveするのではなく`plt.show()`する。つまりNotebookを開いたなかでアニメーションを動かすことを狙った。
 
 ```
 ...
@@ -245,7 +243,7 @@ animation.save("shiftX.gif")
 plt.show()
 ```
 
-実行してみると、axesがあるけどfigureが空っぽ座標平面がプロットされた。JPEG画像が水平方向に移動するアニメーションが表示されることを期待したがそうはならなかった。
+実行してみると、axesがあるけどfigureが空っぽな座標平面がプロットされた。JPEG画像が水平方向に移動するアニメーションが表示されることを期待したがそうはならなかった。
 
 ![anim not acting](docs/images/VSCode_anim_not_acting.png)
 
