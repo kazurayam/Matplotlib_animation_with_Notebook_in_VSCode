@@ -184,7 +184,7 @@ $ /Users/kazurayam/.local/share/virtualenvs/Matplotlib_animation_with_Notebook_i
 
 ### Step6 VSCode+Notebook アニメーションをGIFファイルに保存した
 
-[]()
+Notebook [shiftX_saveGif.ipynb](https://github.com/kazurayam/Matplotlib_animation_with_Notebook_in_VSCode/blob/master/shiftX_saveGif.ipynb) を作った。
 
 ### Step7
 
