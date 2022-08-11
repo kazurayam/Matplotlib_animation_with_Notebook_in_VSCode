@@ -182,9 +182,55 @@ $ /Users/kazurayam/.local/share/virtualenvs/Matplotlib_animation_with_Notebook_i
 
 ![cv2 imported](docs/images/VSCode_ipykernel_cv2_installed.png)
 
-### Step6 VSCode+Notebook アニメーションをGIFファイルに保存した
+### Step6 VSCode+Notebook アニメーションを作るPythonコードを作った、アニメーションGIFファイルを作った
 
-Notebook [shiftX_saveGif.ipynb](https://github.com/kazurayam/Matplotlib_animation_with_Notebook_in_VSCode/blob/master/shiftX_saveGif.ipynb) を作った。
+Notebook [shiftX_saveGif.ipynb](https://github.com/kazurayam/Matplotlib_animation_with_Notebook_in_VSCode/blob/master/shiftX_saveGif.ipynb) を書いた。このコードを作るにあたってはQiita記事[Qiita 完全に理解するアフィン変換 @koshain2](https://qiita.com/koshian2/items/c133e2e10c261b8646bf)の成果を拝借した。Qiita記事はAffine変換を解説することに注力していて、Matplotlibのアニメーションを利用する方法の説明を省いていた。そこでわたしはAnimationのためのコードを補った。
+
+```
+# 水平移動
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
+import cv2
+
+# 一つのsubplotを作る。それはfigureとaxesとから成る
+fig, ax = plt.subplots()
+
+# JPEG画像ファイルを読み込む
+image = cv2.imread("gorilla.jpg")[:,:,::-1]
+
+# 画像を水平に移動する関数（画像を返す）
+# image : 画像
+# shift : 画像をX軸方向にシフトする幅、単位はピクセル. Eg: 20 : X軸方向に20ピクセルだけ移動する
+def shift_x(image, shift):
+    h, w = image.shape[:2]
+    src = np.array([[0.0, 0.0], [0.0, 1.0], [1.0, 0.0]], np.float32)
+    dest = src.copy()
+    dest[:,0] += shift
+    # 変換行列を導き出す
+    transformation_matrix = cv2.getAffineTransform(src, dest)
+    # 画像に対して変換行列を適用する
+    dst = cv2.warpAffine(image, transformation_matrix, (w, h))
+    return dst # 変換された結果としての画像を返す
+
+# frameを描画する関数
+def update(x):
+    transformed = shift_x(image, x)
+    plt.imshow(transformed)
+
+# animate関数をcallしてアニメーションを描画する
+animation = FuncAnimation(fig, update,
+    frames=np.append(np.arange(0,200,20), np.arange(200, 0, -20)), interval=100)
+
+
+# GIFファイルに保存する
+animation.save("shiftX.gif")
+```
+
+このpythonコードはJPEG画像ファイルを読み込みXY座標平面に配置し、画像を徐々に水平方向にスライドさせる、そういうアニメーションを作る。アニメーションを `shiftX.gif` ファイルに保存する。このGIFファイルはアニメーションGIFである。
+
+![GIF](https://github.com/kazurayam/Matplotlib_animation_with_Notebook_in_VSCode/blob/master/shiftX.gif?raw=true)
+
 
 ### Step7
 
