@@ -9,6 +9,7 @@ matplotlib = "*"
 notebook = "*"
 opencv-python = "*"
 ipykernel = "*"
+ipympl = "*"
 
 [dev-packages]
 
