@@ -1,12 +1,12 @@
-# Matplotlibでアニメーションする --- Notebookで, Visual Studio Codeの中で
+# VSCodeのなかNotebookのなかでMatplotlibアニメーションを動かしてみた
 
 ## 解決したい問題
 
-[「ゼロから作るDeep Learning」斎藤康毅著 O'Reilly刊](https://www.oreilly.co.jp/books/9784873117584/)の「5.6 Affine/Softmaxレイヤの実装」を読んでいて引っかかった。そもそもAffine変換って何だっけ？Qiitaで"アフィン変換"を検索したら下記の記事を見つけた。
+[「ゼロから作るDeep Learning」斎藤康毅著 O'Reilly刊](https://www.oreilly.co.jp/books/9784873117584/)の「5.6 Affine/Softmaxレイヤの実装」を読んでいて引っかかった。「Affine変換って何だっけ？」　Qiitaで *アフィン変換* を検索したら下記の記事を見つけた。
 
-- [Qiita 完全に理解するアフィン変換 @koshain2](https://qiita.com/koshian2/items/c133e2e10c261b8646bf)
+- [完全に理解するアフィン変換 @koshain2](https://qiita.com/koshian2/items/c133e2e10c261b8646bf)
 
-とてもためになりそうな記事だが、Affine変換を学ぶ前に僕の関心は脇道に逸れてしまった。というのも、この記事に次のようなアニメーションが貼ってあったから。
+とてもためになりそうな記事だが、Affine変換の学習を始める前に僕の関心は脇道に逸れてしまった。というのも、この記事に次のようなアニメーションが貼ってあったから。
 
  ![shift-x](https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.amazonaws.com%2F0%2F232088%2Fc78e7034-5baa-21ae-7fd0-a700ff4cd27b.gif?ixlib=rb-4.0.0&auto=format&gif-q=60&q=75&w=1400&fit=max&s=90791f22bd00fc189485a39d7310e6cd)
 
@@ -326,4 +326,4 @@ plt.show()
 
 いくつかのパッケージを追加しNotebookの設定を工夫することにより、VSCodeのなかNotebookのなかでMatplotlibアニメーションを動かすことに成功した。
 
-ただしわたしが実装したアニメーションの動きは残念ながら滑らかなでない。ちょっと見るに耐えない感じですらある。JPEG画像を変換する処理を[matplotlib.animation.ArtistAnimation](https://matplotlib.org/stable/api/_as_gen/matplotlib.animation.ArtistAnimation.html)ではなく[matplotlib.animation.FuncAnimation](https://matplotlib.org/stable/api/_as_gen/matplotlib.animation.FuncAnimation.html)で実装したことが要因（CPU負荷が高伊）だと思う。コードに工夫の余地が大いにある。けど、まあ、いいや。
+ただしわたしが実装したアニメーションの動きは残念ながら滑らかなでない。ちょっと見るに耐えない感じですらある。JPEG画像を変換する処理を[matplotlib.animation.ArtistAnimation](https://matplotlib.org/stable/api/_as_gen/matplotlib.animation.ArtistAnimation.html)ではなく[matplotlib.animation.FuncAnimation](https://matplotlib.org/stable/api/_as_gen/matplotlib.animation.FuncAnimation.html)で実装したことが要因だろう。コードに工夫の余地が大いにあるが、まあ、いいことにする。
