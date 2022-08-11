@@ -92,7 +92,7 @@ $ python print_sys.py
 このパスが示すPythonインタープレタはわたしのマシンのデフォルトであって、このプロジェクト専用の仮想環境の中にあるPythonインタープレタではない。これではダメなのだ。
 
 
-### Ste2 プロジェクト専用のPython仮想環境でどう動くか
+## Ste2 プロジェクト専用のPython仮想環境でどう動くか
 
 pipenv runを介して`print_sys.py`を実行してみた。
 
@@ -104,7 +104,7 @@ $ pipenv run python print_sys.py
 
 Step1で使われたPythonインタープレタとStep2のPythonインタープレタのパスが違う。Step1のパスは仮想環境ではない。Step2のパスがこのプロジェクトのために準備した仮想環境の中のPythonインタープレタである。こっちが好みだ。
 
-### Step3 Jupyterでどう動くか
+## Step3 Jupyterでどう動くか
 
 コマンドラインでJupyterを起動した。
 
@@ -119,7 +119,7 @@ $ jupyter notebook
 
 Step1と同じパスが表示された。これは予想通りだ。
 
-### Step4 Jupyter+仮想環境でどう動くか
+## Step4 Jupyter+仮想環境でどう動くか
 
 コマンドラインでpipenv runを介してJupyterを起動した。
 
@@ -138,7 +138,7 @@ $ pipenv run jupyter notebook
 
 >本記事の目標はVSCodeの中でNotebookの中でMatplotlibのアニメーションを動かすことなので、Jupyterの中でNotebookを動かす場合のことには深入りしません。
 
-### Step5 VSCodeでNotebookを実行するために必要な設定
+## Step5 VSCodeでNotebookを実行するために必要な設定
 
 デスクトップアイコンをダブルクリックしてVSCodeを起動し、その中でNotebook `print_sys.ipynb` を開いた。pythonコードを実行してみた。
 
@@ -181,7 +181,7 @@ $ /Users/kazurayam/.local/share/virtualenvs/Matplotlib_animation_with_Notebook_i
 
 ![cv2 imported](docs/images/VSCode_ipykernel_cv2_installed.png)
 
-### Step6 アニメーションするPythonコードを書いた
+## Step6 アニメーションするPythonコードを書いた
 
 [shiftX_saveGif.ipynb](https://github.com/kazurayam/Matplotlib_animation_with_Notebook_in_VSCode/blob/master/shiftX_saveGif.ipynb) というNotebookを書いた。このコードを書くにあたって「[Qiita 完全に理解するアフィン変換 @koshain2](https://qiita.com/koshian2/items/c133e2e10c261b8646bf)」の成果を拝借した。ただしQiita記事はAffine変換を解説することに注力していて、Matplotlibのアニメーションを利用する方法は説明していない。そこでわたしはアニメーションするためのコードを補った。
 
@@ -232,7 +232,7 @@ animation.save("shiftX.gif")
 
 ただしこのスクリプトではNotebookのなかでアニメーションが動くのを見ることはできない。
 
-### Step7 Notebookの中でMatplotlibアニメーションが描画されない。
+## Step7 Notebookの中でMatplotlibアニメーションが描画されない。
 
 [shiftX_without_ipympl.ipynb](https://github.com/kazurayam/Matplotlib_animation_with_Notebook_in_VSCode/blob/master/shiftX_without_ipympl.ipynb)を書いた。このコードはGIFファイルをsaveするのではなく`plt.show()`する。つまりNotebookを開いたなかでアニメーションを動かすことを狙った。
 
@@ -249,7 +249,7 @@ plt.show()
 
 このNotebookを(VSCodeではなくて)Jupyterのなかでも実行してみたが、Jupyterでもアニメーションは表示されなかった。
 
-### Step8 ipymplパッケージを導入したらついに動いた
+## Step8 ipymplパッケージを導入したらついに動いた
 
 MatplotlibのアニメーションをNotebookの中で動かしたいが、まだ何かが足りない。何だろう？ググったらMatplotlibプロジェクトが提供する `ipympl`パッケージ が必要だと分かった。
 
@@ -322,4 +322,4 @@ plt.show()
 
 いくつかのパッケージを追加しNotebookの設定を工夫することにより、VSCodeのなかNotebookのなかでMatplotlibアニメーションを動かすことに成功した。
 
-ただしわたしが実装したアニメーションの動きは残念ながら滑らかでない。JPEG画像を変換する処理を[matplotlib.animation.ArtistAnimation](https://matplotlib.org/stable/api/_as_gen/matplotlib.animation.ArtistAnimation.html)ではなく[matplotlib.animation.FuncAnimation](https://matplotlib.org/stable/api/_as_gen/matplotlib.animation.FuncAnimation.html)で実装したことが要因だと思う。コードに工夫の余地が大いにある。しかし今のところわたしはこれで満足だ。
+今回わたしが実装したアニメーションの動きは残念ながら滑らかでない。JPEG画像を変換する処理を[matplotlib.animation.ArtistAnimation](https://matplotlib.org/stable/api/_as_gen/matplotlib.animation.ArtistAnimation.html)ではなく[matplotlib.animation.FuncAnimation](https://matplotlib.org/stable/api/_as_gen/matplotlib.animation.FuncAnimation.html)で実装したことが要因だと思う。コードに工夫の余地が大いにある。しかし今のところわたしはこれで満足だ。
